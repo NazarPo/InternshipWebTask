@@ -1,6 +1,7 @@
 a {
     text-decoration: none;
     outline: none;
+    cursor: pointer;
 }
 #journal-container .btn {
     position: relative;
