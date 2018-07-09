@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Internship Task #3</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <template id="client-template">
+        <tr class="client" onclick="clickClientRow()">
+            <td class="firstname"></td>
+            <td class="lastname"></td>
+            <td class="order-date"></td>
+        </tr>
+    </template>
+
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header"><a href="#" class="navbar-brand">Auto Service by Joshua</a></div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav" id="nav-ul">
+                <li><a href="#">Home</a></li>
+                <li class="active"><a href="#">Clients</a></li>
+                <li><a href="#">Services</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="container">
+
+        <h2>Journal with all clients and their services:</h2>
+
+        <div class="container">
+            <table class="table table-hover" id="clients-table">
+                <thead>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Order date</th>
+                </tr>
+                </thead>
+                <tbody id="clients-body">
+
+                </tbody>
+            </table>
+
+            <button type="submit"
+                    id="add-new-btn"
+                    class="btn btn-primary"
+                    onclick="openAddForm()">
+                ADD NEW CLIENT
+            </button>
+        </div>
+    </div>
+
+
+    <div id="add-client-div">
+        <div class="container">
+
+            <h2>Add new client</h2>
+
+            <form id="add-client-form">
+                <div class="form-group">
+                    <label for="firstname">First name</label>
+                    <input type="firstname"
+                           class="form-control"
+                           id="firstname"
+                           name="firstname"
+                           placeholder="Enter first name"
+                    >
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last name</label>
+                    <input type="lastname"
+                           class="form-control"
+                           id="lastname"
+                           name="lastname"
+                           placeholder="Enter last name"
+                    >
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+</html>
