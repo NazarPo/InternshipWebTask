@@ -4,11 +4,7 @@ window.onload = init;
 
 function init(){
     changeActive();
-
-    fetch(clientsUrl)
-        .then(res => res.json())
-        .then(renderClients);
-
+    renderHomePage();
     let addClientForm = document.getElementById('add-client-form');
     addClientForm.addEventListener('submit', (e) => {
        e.preventDefault();
@@ -50,11 +46,37 @@ function loadClients(){
         .then(res => res.json());
 }
 
-
 function updateClientElement(element, client) {
     element.querySelector('.firstname').innerHTML = client.firstname;
     element.querySelector('.lastname').innerHTML = client.lastname;
     element.querySelector('.order-date').innerHTML = client.orderDate;
+}
+
+/*Render functions*/
+function renderJournalPage(){
+    clearAllDivs();
+    document.getElementById("journal-container").style.display = "block";
+    fetch(clientsUrl)
+        .then(res => res.json())
+        .then(renderClients);
+}
+
+function renderHomePage() {
+    clearAllDivs();
+    document.getElementById("home-container").style.display = "block";
+}
+
+function renderServicesPage() {
+    clearAllDivs();
+}
+
+function clearAllDivs() {
+    let divs = document.body.children;
+    console.log(divs);
+    for(let i = 0; i < divs.length; i++){
+        if(divs[i] instanceof HTMLDivElement)
+            divs[i].style.display = "none";
+    }
 }
 
 function clickClientRow(){
@@ -62,19 +84,17 @@ function clickClientRow(){
 }
 
 function cleanContainer(){
-    let container = document.getElementById('container');
+    let container = document.getElementById('journal-container');
     container.innerHTML = "";
 }
-
-
 function openAddForm(){
+    clearAllDivs();
     document.getElementById("add-client-div").style.display = "block";
-    document.getElementById("container").style.display = "none";
 }
 
 function closeAddForm(){
-    document.getElementById("add-client-div").style.display = "none";
-    document.getElementById("container").style.display = "block";
+    clearAllDivs();
+    document.getElementById("journal-container").style.display = "block";
 }
 
 function changeActive() {
