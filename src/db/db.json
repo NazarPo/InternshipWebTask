@@ -6,9 +6,21 @@
       "lastname": "Travolta",
       "orderDate": "Mon, 09 Jul 2018 13:00:00 GMT",
       "services": [
-        {},
-        {},
-        {}
+        {
+          "name": "Blalbls",
+          "category": "dsdsds",
+          "price": 10000
+        },
+        {
+          "name": "Blalbls",
+          "category": "dsdsds",
+          "price": 10000
+        },
+        {
+          "name": "Blalbls",
+          "category": "dsdsds",
+          "price": 10000
+        }
       ]
     },
     {
@@ -17,8 +29,16 @@
       "lastname": "Izvestniy",
       "orderDate": "Mon, 09 Jul 2018 10:20:00 GMT",
       "services": [
-        {},
-        {}
+        {
+          "name": "Blalbls",
+          "category": "dsdsds",
+          "price": 10000
+        },
+        {
+          "name": "Blalbls",
+          "category": "dsdsds",
+          "price": 10000
+        }
       ]
     },
     {
@@ -27,14 +47,12 @@
       "lastname": "Neizvestniy",
       "orderDate": "Mon, 09 Jul 2018 09:09:00 GMT",
       "services": [
-        {}
+        {
+          "name": "Blalbls",
+          "category": "dsdsds",
+          "price": 10000
+        }
       ]
-    },
-    {
-      "firstname": "Nazar",
-      "lastname": "Poshtarenko",
-      "orderDate": "Mon, 09 Jul 2018 15:17:55 GMT",
-      "id": 4
     }
   ]
 }

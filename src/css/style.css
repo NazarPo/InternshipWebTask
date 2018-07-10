@@ -1,59 +1,69 @@
 a {
-    text-decoration: none;
     outline: none;
+    cursor: pointer;
 }
-
-#container .btn {
-    position: relative;
-    left: 50%;
-    margin-left: -100px;
+tr {
+    cursor: pointer;
 }
-
 #add-client-div {
+    padding-top: 150px;
+    width: 100%;
     display: none;
 }
 
-#container {
+#journal-container {
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+#home-container {
+    background-color: white;
     width: 100%;
     height: 100%;
 }
-
-#add-client-div .container{
-    background-color: lightgray;
-
-    border: 3px solid dimgrey;
-    border-radius: 2%;
-
-    position: absolute;
-    top: 0;
-    bottom: 100px;
-    left: 0;
-    right: 0;
-
-    margin: auto;
-    width: 400px;
-    height: 280px;
-    z-index: 9999;
-    overflow-y: hidden;
-    transition: 2s;
+#home-container .container {
+    margin-top: 20%;
 }
-
-#add-client-form .btn {
-    position: relative;
-    left: 50%;
-    margin-left: -30px;
-}
-
-#add-client-div .container h2{
+#home-container h1{
+    color: #222222;
+    font-size: 40px;
     text-align: center;
 }
-
-#add-new-btn {
-    margin-top: 30px;
+#home-container p {
+    color: #222222;
+    font-size: 20px;
+    text-align: center;
+}
+.add-button {
+    position: relative;
+    font-size: 17px;
 }
 
-#container h2{
+#add-client-div .col h2{
+    text-align: center;
+}
+#add-new-btn {
+    margin-top: 30px;
+    font-size: 20px;
+}
+#journal-container h2{
     margin-top: 50px;
     margin-bottom: 50px;
     text-align: center;
+}
+#client-container h2{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+#client-container {
+    display: none;
+}
+#brand{
+    color: white;
+    font-size: 25px;
+}
+#navbarNavAltMarkup .navbar-nav a{
+    margin: 0 15px 0 15px;
 }
