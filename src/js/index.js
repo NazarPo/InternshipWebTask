@@ -47,6 +47,7 @@ function loadClients(){
 }
 
 function updateClientElement(element, client) {
+    element.querySelector('.id').innerHTML = client.id;
     element.querySelector('.firstname').innerHTML = client.firstname;
     element.querySelector('.lastname').innerHTML = client.lastname;
     element.querySelector('.order-date').innerHTML = client.orderDate;
