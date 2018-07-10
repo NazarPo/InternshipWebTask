@@ -3,95 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <title>Internship Task #3</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <template id="client-template">
-        <tr class="client" onclick="clickClientRow()">
-            <td class="id"></td>
-            <td class="firstname"></td>
-            <td class="lastname"></td>
-            <td class="order-date"></td>
-        </tr>
-    </template>
+<template id="client-template">
+    <tr class="client" onclick="clickClientRow(this)">
+        <td class="id"></td>
+        <td class="firstname"></td>
+        <td class="lastname"></td>
+        <td class="order-date"></td>
+    </tr>
+</template>
 
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header"><a class="navbar-brand">Auto Service by Joshua</a></div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav" id="nav-ul">
-                <li class="active"><a onclick="renderHomePage()">Home</a></li>
-                <li><a onclick="renderJournalPage()">Journal</a></li>
-                <li><a onclick="renderServicesPage()">Services</a></li>
-            </ul>
-        </div>
-    </nav>
+<template id="client-services-template">
+    <tr class="client-services">
+        <td class="name"></td>
+        <td class="category"></td>
+        <td class="price"></td>
+    </tr>
+</template>
 
-    <div id="journal-container">
-        <h2>Journal with all clients and their services:</h2>
-        <div class="container">
-            <table class="table table-hover" id="clients-table">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Order date</th>
-                </tr>
-                </thead>
-                <tbody id="clients-body">
-
-                </tbody>
-            </table>
-
-            <button type="submit"
-                    id="add-new-btn"
-                    class="btn btn-primary"
-                    data-target="#addClient"
-                    onclick="openAddForm()">
-                Add new client
-            </button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a id="brand" class="navbar-brand nav-link disabled">Auto Service by Joshua</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav" id="nav-list">
+            <a class="nav-item nav-link active" onclick="renderHomePage()">Home</a>
+            <a class="nav-item nav-link" onclick="renderJournalPage()">Journal</a>
+            <a class="nav-item nav-link" onclick="renderServicesPage()">Services</a>
         </div>
     </div>
+</nav>
 
-    <div id="home-container" class="text-center">
-        <div class="container">
-            <h1>Auto service</h1>
-            <p>Cover is a one-page template for building simple and beautiful home pages. Download, edit the text, and add your own fullscreen background photo to make it your own.</p>
+<div id="journal-container">
+    <h2>Journal with all clients and their services:</h2>
+    <div class="container text-center">
+        <table class="table table-hover border" id="clients-table" >
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Order date</th>
+            </tr>
+            </thead>
+            <tbody id="clients-body">
+
+            </tbody>
+        </table>
+
+        <button  type="button"
+                 class="btn btn-primary add-button"
+                 data-toggle="modal"
+                 data-target="#add-client-div"
+                 data-whatever="@mdo"
+                 id="add-new-btn">
+            add new client
+        </button>
+    </div>
+</div>
+
+<div id="home-container">
+    <div class="container">
+        <h1>Auto service</h1>
+        <p>Cover is a one-page template for building simple and beautiful home pages.
+            Download, edit the text, and add your own fullscreen background photo
+            to make it your own.
+        </p>
+    </div>
+</div>
+
+<div id="client-container">
+    <h2>All ordered services by client <span></span>:</h2>
+    <div class="container text-center" id="client-div">
+        <table class="table table-hover border" id="client-services-table">
+            <thead>
+            <tr>
+                <th>Service name</th>
+                <th>Category</th>
+                <th>Price</th>
+            </tr>
+            </thead>
+            <tbody id="client-services-body">
+
+            </tbody>
+        </table>
+
+        <form class="form" id="add-service-form">
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Service</label>
+            <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                <!-- Dynamically added options -->
+            </select>
+            <button type="submit" class="btn btn-primary my-1">add</button>
+        </form>
+    </div>
+</div>
+
+<div id="services-container">
+    <h1>....</h1>
+</div>
+
+<div class="modal fade" id="add-client-div" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add new client</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="add-client-form">
+                    <div class="form-group">
+                        <label for="firstname">First name</label>
+                        <input type="firstname"
+                               class="form-control"
+                               id="firstname"
+                               name="firstname"
+                               placeholder="Enter first name"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Last name</label>
+                        <input type="lastname"
+                               class="form-control"
+                               id="lastname"
+                               name="lastname"
+                               placeholder="Enter last name"
+                        >
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary add-button" form="add-client-form">Add</button>
+            </div>
         </div>
     </div>
+</div>
 
 
-    <div id="add-client-div">
-        <div class="container">
-
-            <h2>Add new client</h2>
-            <form id="add-client-form">
-                <div class="form-group">
-                    <label for="firstname">First name</label>
-                    <input type="firstname"
-                           class="form-control"
-                           id="firstname"
-                           name="firstname"
-                           placeholder="Enter first name"
-                    >
-                </div>
-                <div class="form-group">
-                    <label for="lastname">Last name</label>
-                    <input type="lastname"
-                           class="form-control"
-                           id="lastname"
-                           name="lastname"
-                           placeholder="Enter last name"
-                    >
-                </div>
-                <button type="submit" class="btn btn-primary">Add</button>
-            </form>
-
-        </div>
-    </div>
-
-    <script src="js/index.js"></script>
+<script src="js/index.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 </body>
 </html>

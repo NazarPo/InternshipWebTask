@@ -1,18 +1,18 @@
 a {
-    text-decoration: none;
     outline: none;
     cursor: pointer;
 }
-#journal-container .btn {
-    position: relative;
-    left: 50%;
-    margin-left: -100px;
+tr {
+    cursor: pointer;
 }
-
 #add-client-div {
-   display: none;
+    padding-top: 150px;
 }
-
+#client-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 #journal-container {
     width: 100%;
     height: 100%;
@@ -22,48 +22,23 @@ a {
     background-color: white;
     width: 100%;
     height: 100%;
-    position: fixed;
 }
 #home-container .container {
-    margin-top: 400px;
+    margin-top: 20%;
 }
 #home-container h1{
     color: #222222;
     font-size: 40px;
+    text-align: center;
 }
 #home-container p {
     color: #222222;
     font-size: 20px;
-}
-#add-client-div .container{
-    background-color: #222222;
-
-    border: 2px solid white;
-    border-radius: 2.5%;
-
-    position: absolute;
-    top: 0;
-    bottom: 100px;
-    left: 0;
-    right: 0;
-
-    margin: auto;
-    width: 400px;
-    height: 280px;
-    z-index: 9999;
-    overflow-y: hidden;
-    color: white;
-}
-#add-client-form .btn {
-    position: relative;
-    left: 50%;
-    margin-left: -30px;
-    font-size: 17px;
-    transition: top .5s ease-in-out;
-}
-
-#add-client-div .container h2{
     text-align: center;
+}
+.add-button {
+    position: relative;
+    font-size: 17px;
 }
 #add-new-btn {
     margin-top: 30px;
@@ -74,16 +49,21 @@ a {
     margin-bottom: 50px;
     text-align: center;
 }
-.navbar-inverse{
-    margin-bottom: 0;
+#client-container h2{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
 }
-nav .navbar-header {
-    padding: 0 30px 0 30px;
+#client-container {
+    display: none;
 }
-nav .navbar-brand {
+#brand{
+    color: white;
     font-size: 25px;
 }
-#nav-ul li {
-    font-size: 19px;
-    margin: 0 7px 0 7px;
+#navbarNavAltMarkup .navbar-nav a{
+    margin: 0 15px 0 15px;
+}
+#services-container {
+    display: none;
 }
