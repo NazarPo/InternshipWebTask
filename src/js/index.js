@@ -1,10 +1,13 @@
 const clientsUrl = 'http://localhost:4000/clients';
+const servicesUrl = 'http://localhost:4000/services';
 
 window.onload = init;
 
 function init(){
     changeActive();
     renderHomePage();
+    getAvailableServices();
+
     let addClientForm = document.getElementById('add-client-form');
     addClientForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -13,6 +16,14 @@ function init(){
             .then(loadClients)
             .then(renderClients)
     });
+
+    let addServiceForm = document.getElementById('add-service-form');
+    addServiceForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        getClientFromDB()
+            .then(addServiceToClient)
+            .then(renderClientPage)
+    })
 }
 
 function loadClients(){
@@ -33,18 +44,42 @@ function renderClients(clients) {
     }
 }
 
-function createClient(){
+function createClient() {
     let client = {};
     let form = document.getElementById('add-client-form');
     client.firstname = form.firstname.value;
     client.lastname = form.lastname.value;
     client.orderDate = new Date().toUTCString();
+    client.services = [];
 
-    return fetch(clientsUrl, {
+    addClientToDB(client);
+}
+
+function addClientToDB(client){
+   return fetch(clientsUrl, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(client)
-    });
+    })
+       .then(res => res.json());
+}
+
+function getClientFromDB() {
+    let clientId =  document.getElementById('add-service-form').getElementsByTagName('BUTTON')[0].id;
+    return fetch(clientsUrl + "/" + clientId)
+        .then(res => res.json())
+}
+
+function addServiceToClient(client) {
+    let select = document.getElementById('inlineFormCustomSelectPref');
+    fetch(servicesUrl + "/" + select.value)
+        .then(res => res.json())
+        .then(s => pushService(client, s))
+}
+
+function pushService(client, s) {
+    client.services.push(s);
+    return addClientToDB(client);
 }
 
 function renderClientPage(client) {
@@ -98,12 +133,12 @@ function renderJournalPage() {
 
 function clickClientRow(elem){
     clearAllDivs();
+    document.getElementById('add-service-form').getElementsByTagName('BUTTON')[0].setAttribute("id", elem.children[0].textContent);
     document.getElementById("client-container").style.display = "block";
     fetch(clientsUrl + "/" + elem.children[0].textContent)
         .then(res => res.json())
         .then(renderClientPage)
 }
-
 
 /*Additional functions*/
 function clearAllDivs() {
@@ -114,7 +149,7 @@ function clearAllDivs() {
     }
 }
 
-function openAddForm(){
+function openAddClientForm(){
     clearAllDivs();
     document.getElementById("add-client-div").style.display = "block";
 }
@@ -134,4 +169,22 @@ function changeActive() {
             this.className += " active";
         })
     }
+}
+
+/*Get services from JSON server*/
+function getAvailableServices() {
+    fetch(servicesUrl)
+        .then(res => res.json())
+        .then(setSelectOptionsByServices)
+}
+
+function setSelectOptionsByServices(services){
+    let select = document.getElementById('inlineFormCustomSelectPref');
+    for(let service of services){
+        let option = document.createElement("OPTION");
+        option.setAttribute("value", service.id);
+        option.innerText = service.name;
+        select.appendChild(option);
+    }
+    select.children[0].setAttribute("selected", "selected");
 }

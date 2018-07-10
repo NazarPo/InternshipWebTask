@@ -5,12 +5,16 @@ a {
 tr {
     cursor: pointer;
 }
+#client-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 #add-client-div {
     padding-top: 150px;
     width: 100%;
     display: none;
 }
-
 #journal-container {
     width: 100%;
     height: 100%;

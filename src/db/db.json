@@ -6,21 +6,6 @@
       "lastname": "Travolta",
       "orderDate": "Mon, 09 Jul 2018 13:00:00 GMT",
       "services": [
-        {
-          "name": "Blalbls",
-          "category": "dsdsds",
-          "price": 10000
-        },
-        {
-          "name": "Blalbls",
-          "category": "dsdsds",
-          "price": 10000
-        },
-        {
-          "name": "Blalbls",
-          "category": "dsdsds",
-          "price": 10000
-        }
       ]
     },
     {
@@ -29,16 +14,6 @@
       "lastname": "Izvestniy",
       "orderDate": "Mon, 09 Jul 2018 10:20:00 GMT",
       "services": [
-        {
-          "name": "Blalbls",
-          "category": "dsdsds",
-          "price": 10000
-        },
-        {
-          "name": "Blalbls",
-          "category": "dsdsds",
-          "price": 10000
-        }
       ]
     },
     {
@@ -47,12 +22,40 @@
       "lastname": "Neizvestniy",
       "orderDate": "Mon, 09 Jul 2018 09:09:00 GMT",
       "services": [
-        {
-          "name": "Blalbls",
-          "category": "dsdsds",
-          "price": 10000
-        }
       ]
+    },
+    {
+      "firstname": "Nazar",
+      "lastname": "Poshtarenko",
+      "orderDate": "Tue, 10 Jul 2018 11:13:56 GMT",
+      "services": [],
+      "id": 4
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "name": "NAME 1",
+      "category": "CATEGORY",
+      "price": 34000
+    },
+    {
+      "id": 2,
+      "name": "NAME 2",
+      "category": "CATEGORY",
+      "price": 34000
+    },
+    {
+      "id": 3,
+      "name": "NAME 3",
+      "category": "CATEGORY",
+      "price": 34000
+    },
+    {
+      "id": 4,
+      "name": "NAME 4",
+      "category": "CATEGORY",
+      "price": 34000
     }
   ]
 }

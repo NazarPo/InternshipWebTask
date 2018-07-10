@@ -57,9 +57,8 @@
 
             <button id="add-new-btn"
                     class="btn btn-primary add-button"
-                    data-target="#addClient"
-                    onclick="openAddForm()">
-                Add new client
+                    onclick="openAddClientForm()">
+                add new client
             </button>
         </div>
     </div>
@@ -76,8 +75,8 @@
 
     <div id="client-container">
         <h2>All ordered services by client <span></span>:</h2>
-        <div class="container">
-            <table class="table table-hover" id="client-services-table">
+        <div class="container text-center" id="client-div">
+            <table class="table table-hover border" id="client-services-table">
                 <thead>
                 <tr>
                     <th>Service name</th>
@@ -89,6 +88,14 @@
 
                 </tbody>
             </table>
+
+            <form class="form-inline" id="add-service-form">
+                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Service</label>
+                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                    <!-- Dynamically added options -->
+                </select>
+                <button type="submit" class="btn btn-primary my-1">add</button>
+            </form>
         </div>
     </div>
 
