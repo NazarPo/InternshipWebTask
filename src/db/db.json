@@ -6,6 +6,20 @@
       "lastname": "Travolta",
       "orderDate": "Mon, 09 Jul 2018 13:00:00 GMT",
       "services": [
+        {
+          "id": 2,
+          "name": "name 2",
+          "img": "img/repairingTransmission.JPG",
+          "category": "category",
+          "price": 34000
+        },
+        {
+          "id": 4,
+          "name": "name 4",
+          "img": "img/repairingWheels.jpg",
+          "category": "category",
+          "price": 34000
+        }
       ]
     },
     {
@@ -13,16 +27,14 @@
       "firstname": "Dima",
       "lastname": "Izvestniy",
       "orderDate": "Mon, 09 Jul 2018 10:20:00 GMT",
-      "services": [
-      ]
+      "services": []
     },
     {
       "id": 3,
       "firstname": "Dima",
       "lastname": "Neizvestniy",
       "orderDate": "Mon, 09 Jul 2018 09:09:00 GMT",
-      "services": [
-      ]
+      "services": []
     },
     {
       "firstname": "Nazar",
@@ -30,32 +42,50 @@
       "orderDate": "Tue, 10 Jul 2018 11:13:56 GMT",
       "services": [],
       "id": 4
+    },
+    {
+      "firstname": "Naza",
+      "lastname": "Renko",
+      "orderDate": "Wed, 11 Jul 2018 13:21:16 GMT",
+      "services": [],
+      "id": 5
     }
   ],
   "services": [
     {
       "id": 1,
-      "name": "NAME 1",
-      "category": "CATEGORY",
+      "name": "name 1",
+      "img": "img/repairingEngine.png",
+      "category": "category",
       "price": 34000
     },
     {
       "id": 2,
-      "name": "NAME 2",
-      "category": "CATEGORY",
+      "name": "name 2",
+      "img": "img/repairingTransmission.JPG",
+      "category": "category",
       "price": 34000
     },
     {
       "id": 3,
-      "name": "NAME 3",
-      "category": "CATEGORY",
+      "name": "name 3",
+      "img": "img/repairingWheels.jpg",
+      "category": "category",
       "price": 34000
     },
     {
       "id": 4,
-      "name": "NAME 4",
-      "category": "CATEGORY",
+      "name": "name 4",
+      "img": "img/repairingWheels.jpg",
+      "category": "category",
       "price": 34000
+    },
+    {
+      "name": "name 5",
+      "category": "category",
+      "price": 12000,
+      "img": "img/repairingTransmission.JPG",
+      "id": 5
     }
   ]
 }

@@ -12,9 +12,16 @@ function init(){
     addClientForm.addEventListener('submit', (e) => {
         e.preventDefault();
         createClient()
-            .then(closeAddForm)
             .then(loadClients)
             .then(renderClients)
+    });
+
+    let createNewServiceForm = document.getElementById('add-new-service-form');
+    createNewServiceForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        createService()
+            .then(loadServices)
+            .then(renderServices)
     });
 
     let addServiceForm = document.getElementById('add-service-form');
@@ -22,13 +29,19 @@ function init(){
         e.preventDefault();
         getClientFromDB()
             .then(addServiceToClient)
+            .then(getClientFromDB)
             .then(renderClientPage)
     })
 }
 
-function loadClients(){
+function loadClients() {
     return fetch(clientsUrl)
         .then(res => res.json());
+}
+
+function loadServices() {
+    return fetch(servicesUrl)
+        .then(res => res.json())
 }
 
 function renderClients(clients) {
@@ -44,6 +57,18 @@ function renderClients(clients) {
     }
 }
 
+function createService() {
+    let service ={};
+    let form = document.getElementById('add-new-service-form');
+    service.name = form.name.value;
+    service.category = form.category.value;
+    service.price = parseInt(form.price.value);
+    service.img = 'img/' + form.image.files[0].name;
+
+    return addServiceToDB(service);
+}
+
+/*Create functions*/
 function createClient() {
     let client = {};
     let form = document.getElementById('add-client-form');
@@ -52,34 +77,53 @@ function createClient() {
     client.orderDate = new Date().toUTCString();
     client.services = [];
 
-    addClientToDB(client);
+    return addClientToDB(client);
 }
 
-function addClientToDB(client){
-   return fetch(clientsUrl, {
+/*Add to database functions*/
+function addClientToDB(client) {
+    return fetch(clientsUrl, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(client)
     })
-       .then(res => res.json());
 }
 
+function addServiceToDB(service) {
+    return fetch(servicesUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(service)
+    })
+}
+
+/*Get from database functions*/
 function getClientFromDB() {
     let clientId =  document.getElementById('add-service-form').getElementsByTagName('BUTTON')[0].id;
     return fetch(clientsUrl + "/" + clientId)
         .then(res => res.json())
 }
 
-function addServiceToClient(client) {
+function getServiceFromDB() {
     let select = document.getElementById('inlineFormCustomSelectPref');
-    fetch(servicesUrl + "/" + select.value)
+    return fetch(servicesUrl + "/" + select.value)
         .then(res => res.json())
-        .then(s => pushService(client, s))
 }
 
-function pushService(client, s) {
-    client.services.push(s);
-    return addClientToDB(client);
+function addServiceToClient(client) {
+    return getServiceFromDB()
+        .then(service => pushService(client, service))
+}
+
+function pushService(client, service) {
+    if(!isArrayContains(client.services, service))
+        client.services.push(service);
+    let clientId =  document.getElementById('add-service-form').getElementsByTagName('BUTTON')[0].id;
+    return fetch(clientsUrl + "/" + clientId, {
+        method: 'PATCH',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(client)
+    })
 }
 
 function renderClientPage(client) {
@@ -99,6 +143,27 @@ function renderClientPage(client) {
     }
 }
 
+function renderServices(services) {
+    let template = document.getElementById('service-template');
+    let serviceElement = template.content.querySelector('.col-md-4');
+    let servicesContainer = document.getElementById('services-body');
+    servicesContainer.innerHTML = "";
+
+    for(let service of services) {
+        let serviceClone = serviceElement.cloneNode(true);
+        updateServiceElement(serviceClone, service);
+        servicesContainer.appendChild(serviceClone);
+    }
+}
+
+function deleteService(button) {
+    let serviceId = button.id;
+    return fetch(servicesUrl + "/" + serviceId, {
+        method: 'DELETE'
+    })
+        .then(renderServicesPage)
+}
+
 /*Update functions*/
 function updateClientElement(element, client) {
     element.querySelector('.id').innerHTML = client.id;
@@ -113,6 +178,14 @@ function updateClientServiceElement(element, service){
     element.querySelector('.price').innerHTML = service.price.toLocaleString() + " $";
 }
 
+function updateServiceElement(element, service) {
+    element.querySelector(".name").innerHTML = service.name;
+    element.querySelector(".category").innerHTML = service.category;
+    element.querySelector(".price").innerHTML = service.price.toLocaleString() + " $";
+    element.querySelector(".card-img-top").setAttribute("src", service.img);
+    element.querySelector(".delete-service-btn").setAttribute("id", service.id);
+}
+
 /*Render functions*/
 function renderHomePage() {
     clearAllDivs();
@@ -121,6 +194,10 @@ function renderHomePage() {
 
 function renderServicesPage() {
     clearAllDivs();
+    document.getElementById("services-container").style.display = "block";
+    fetch(servicesUrl)
+        .then(res => res.json())
+        .then(renderServices);
 }
 
 function renderJournalPage() {
@@ -133,9 +210,11 @@ function renderJournalPage() {
 
 function clickClientRow(elem){
     clearAllDivs();
-    document.getElementById('add-service-form').getElementsByTagName('BUTTON')[0].setAttribute("id", elem.children[0].textContent);
     document.getElementById("client-container").style.display = "block";
-    fetch(clientsUrl + "/" + elem.children[0].textContent)
+
+    document.getElementById('add-service-form').getElementsByTagName('BUTTON')[0].setAttribute("id", elem.children[0].textContent);
+    let clientId= document.getElementById('add-service-form').getElementsByTagName('BUTTON')[0].id;
+    fetch(clientsUrl + "/" + clientId)
         .then(res => res.json())
         .then(renderClientPage)
 }
@@ -147,16 +226,6 @@ function clearAllDivs() {
         if(divs[i] instanceof HTMLDivElement)
             divs[i].style.display = "none";
     }
-}
-
-function openAddClientForm(){
-    clearAllDivs();
-    document.getElementById("add-client-div").style.display = "block";
-}
-
-function closeAddForm(){
-    clearAllDivs();
-    document.getElementById("journal-container").style.display = "block";
 }
 
 function changeActive() {
@@ -187,4 +256,22 @@ function setSelectOptionsByServices(services){
         select.appendChild(option);
     }
     select.children[0].setAttribute("selected", "selected");
+}
+
+function isArrayContains(array, elem) {
+    for(let i = 0; i < array.length; i++) {
+        if (array[i].id === elem.id)
+            return true;
+    }
+    return false;
+}
+
+function isNumberKey(event) {
+    let charCode = (event.which) ? event.which : event.keyCode;
+    return !(charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57));
+}
+
+function closeModal() {
+    $('#add-service-div').modal('hide');
+    $('#add-client-div').modal('hide');
 }

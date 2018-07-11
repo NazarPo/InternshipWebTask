@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Internship Task #3</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -24,9 +25,36 @@
         </tr>
     </template>
 
+    <template id="service-template">
+        <div class="col-md-4">
+            <div class="card mb-4 box-shadow">
+                <img class="card-img-top" alt="Thumbnail [100%x225]"
+                     style="height: 225px; width: 100%; display: block;"
+                     data-holder-rendered="true">
+                <div class="card-body">
+                    <h3 class="name"></h3>
+                    <h3 class="category"></h3>
+                    <h3 class="price"></h3>
+                    <p class="card-text">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Aspernatur ipsa minima odio saepe unde. Expedita in ipsum iste pariatur qui quod tenetur
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button class="btn btn-sm btn-outline-secondary" type="button">View</button>
+                        <button class="btn btn-sm btn-outline-secondary delete-service-btn"
+                                type="button" onclick="deleteService(this)">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a id="brand" class="navbar-brand nav-link disabled">Auto Service by Joshua</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -41,25 +69,28 @@
     <div id="journal-container">
         <h2>Journal with all clients and their services:</h2>
         <div class="container text-center">
+            <button  type="button"
+                     class="btn btn-primary add-button"
+                     data-toggle="modal"
+                     data-target="#add-client-div"
+                     data-whatever="@mdo"
+                     id="add-new-client-btn">
+                Add new client
+            </button>
+
             <table class="table table-hover border" id="clients-table" >
                 <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Order date</th>
-                    </tr>
+                <tr>
+                    <th>Id</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Order date</th>
+                </tr>
                 </thead>
                 <tbody id="clients-body">
 
                 </tbody>
             </table>
-
-            <button id="add-new-btn"
-                    class="btn btn-primary add-button"
-                    onclick="openAddClientForm()">
-                add new client
-            </button>
         </div>
     </div>
 
@@ -89,50 +120,160 @@
                 </tbody>
             </table>
 
-            <form class="form-inline" id="add-service-form">
+            <form class="form" id="add-service-form">
                 <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Service</label>
                 <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
                     <!-- Dynamically added options -->
                 </select>
-                <button type="submit" class="btn btn-primary my-1">add</button>
+                <button type="submit" class="btn btn-primary my-1">Add</button>
             </form>
         </div>
     </div>
 
-    <div class="container text-center" id="add-client-div">
-        <div class="row mt-2">
-            <div class="col-3"></div>
-            <div class="col">
-                <h2>Add new client</h2>
-                <form id="add-client-form">
-                    <div class="form-group">
-                        <label for="firstname">First name</label>
-                        <input type="firstname"
-                               class="form-control"
-                               id="firstname"
-                               name="firstname"
-                               placeholder="Enter first name"
-                        >
+    <div id="services-container">
+        <main role="main">
+            <section class="jumbotron text-center">
+                <div class="container">
+                    <h1 class="jumbotron-heading">Services example</h1>
+                    <p class="lead text-muted">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut delectus deleniti dolore eum
+                        itaque iusto labore, libero quas rerum unde! Aspernatur labore maxime molestias odit quasi
+                        soluta, tempore totam voluptate?
+                    </p>
+                    <button  type="button"
+                             class="btn btn-primary add-button"
+                             data-toggle="modal"
+                             data-target="#add-service-div"
+                             data-whatever="@mdo"
+                             id="add-new-service-btn">
+                        Add new service
+                    </button>
+                </div>
+            </section>
+            <div class="album py-5 bg-light">
+                <div class="container">
+                    <div class="row" id="services-body">
+                        <!-- Dynamically added services -->
                     </div>
-                    <div class="form-group">
-                        <label for="lastname">Last name</label>
-                        <input type="lastname"
-                               class="form-control"
-                               id="lastname"
-                               name="lastname"
-                               placeholder="Enter last name"
-                        >
-                    </div>
-                    <button type="submit" class="btn btn-primary add-button">Add</button>
-                </form>
+                </div>
             </div>
-            <div class="col-3"></div>
+        </main>
+    </div>
+
+    <!-- Modal windowed adding new SERVICE form -->
+    <div class="modal fade" id="add-service-div" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Add new service</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-new-service-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input class="form-control"
+                                   id="name"
+                                   name="name"
+                                   placeholder="Enter name"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <input class="form-control"
+                                   id="category"
+                                   name="category"
+                                   placeholder="Enter category"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price</label>
+                            <input class="form-control"
+                                   id="price"
+                                   name="price"
+                                   maxlength="7"
+                                   placeholder="Enter price"
+                                   type="text"
+                                   onkeypress="return isNumberKey(event)"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceInput">Upload image</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Upload</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="serviceInput" name="image">
+                                    <label class="custom-file-label" for="serviceInput">Choose file</label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary add-button" form="add-new-service-form" onclick="closeModal()">Add</button>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Modal windowed adding new CLIENT form -->
+    <div class="modal fade" id="add-client-div" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel2">Add new client</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="add-client-form">
+                        <div class="form-group">
+                            <label for="firstname">First name</label>
+                            <input type="firstname"
+                                   class="form-control"
+                                   id="firstname"
+                                   name="firstname"
+                                   placeholder="Enter first name"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname">Last name</label>
+                            <input type="lastname"
+                                   class="form-control"
+                                   id="lastname"
+                                   name="lastname"
+                                   placeholder="Enter last name"
+                            >
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary add-button" form="add-client-form" onclick="closeModal()">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script src="js/index.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+            crossorigin="anonymous"></script>
 </body>
 </html>

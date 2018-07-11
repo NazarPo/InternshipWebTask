@@ -46,9 +46,13 @@ tr {
 #add-client-div .col h2{
     text-align: center;
 }
-#add-new-btn {
-    margin-top: 30px;
-    font-size: 20px;
+#add-new-client-btn {
+    margin-bottom: 40px;
+    font-size: 19px;
+}
+#add-new-service-btn {
+    margin-top: 20px;
+    font-size: 19px;
 }
 #journal-container h2{
     margin-top: 50px;
