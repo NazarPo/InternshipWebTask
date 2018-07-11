@@ -75,3 +75,6 @@ tr {
 #navbarNavAltMarkup .navbar-nav a{
     margin: 0 15px 0 15px;
 }
+.error-validate {
+    border: 2px solid red;
+}

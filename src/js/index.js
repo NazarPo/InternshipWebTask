@@ -4,6 +4,9 @@ const servicesUrl = 'http://localhost:4000/services';
 window.onload = init;
 
 function init(){
+    removeErrorClass('validate-service');
+    removeErrorClass('validate-client');
+
     changeActive();
     renderHomePage();
     getAvailableServices();
@@ -11,6 +14,9 @@ function init(){
     let addClientForm = document.getElementById('add-client-form');
     addClientForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        removeErrorClass('validate-client');
+        if(!validation('validate-client'))
+            return;
         createClient()
             .then(loadClients)
             .then(renderClients)
@@ -19,6 +25,9 @@ function init(){
     let createNewServiceForm = document.getElementById('add-new-service-form');
     createNewServiceForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        removeErrorClass('validate-service');
+        if(!validation('validate-service'))
+            return;
         createService()
             .then(loadServices)
             .then(renderServices)
@@ -272,6 +281,28 @@ function isNumberKey(event) {
 }
 
 function closeModal() {
-    $('#add-service-div').modal('hide');
-    $('#add-client-div').modal('hide');
+    if(validation('validate-service') || validation('validate-client')) {
+        $('#add-service-div').modal('hide');
+        $('#add-client-div').modal('hide');
+    }
+}
+
+function validation(validateClass) {
+    let validationFields = document.getElementsByClassName(validateClass);
+    let regexp = /^[\s]+$/;
+    let result = true;
+    for(let field of validationFields) {
+        if(regexp.test(field.value) || field.value === '') {
+            field.className += ' error-validate';
+            result = false;
+        }
+    }
+    return result;
+}
+
+function removeErrorClass(validateClass) {
+    let validationFields = document.getElementsByClassName(validateClass);
+    for(let field of validationFields) {
+        field.classList.remove('error-validate');
+    }
 }

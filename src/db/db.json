@@ -5,22 +5,7 @@
       "firstname": "John",
       "lastname": "Travolta",
       "orderDate": "Mon, 09 Jul 2018 13:00:00 GMT",
-      "services": [
-        {
-          "id": 2,
-          "name": "name 2",
-          "img": "img/repairingTransmission.JPG",
-          "category": "category",
-          "price": 34000
-        },
-        {
-          "id": 4,
-          "name": "name 4",
-          "img": "img/repairingWheels.jpg",
-          "category": "category",
-          "price": 34000
-        }
-      ]
+      "services": []
     },
     {
       "id": 2,
@@ -44,9 +29,9 @@
       "id": 4
     },
     {
-      "firstname": "Naza",
-      "lastname": "Renko",
-      "orderDate": "Wed, 11 Jul 2018 13:21:16 GMT",
+      "firstname": "jyjtyjtj",
+      "lastname": "jgj5676",
+      "orderDate": "Wed, 11 Jul 2018 15:40:02 GMT",
       "services": [],
       "id": 5
     }
