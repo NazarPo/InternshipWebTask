@@ -6,13 +6,14 @@ window.onload = init;
 function init(){
     removeErrorClass('validate-service');
     removeErrorClass('validate-client');
+    removeErrorClass('validate-edited-service');
 
     changeActive();
     renderHomePage();
     getAvailableServices();
 
-    let addClientForm = document.getElementById('add-client-form');
-    addClientForm.addEventListener('submit', (e) => {
+    let createClientForm = document.getElementById('add-client-form');
+    createClientForm.addEventListener('submit', (e) => {
         e.preventDefault();
         removeErrorClass('validate-client');
         if(!validation('validate-client'))
@@ -26,9 +27,20 @@ function init(){
     createNewServiceForm.addEventListener('submit', (e) => {
         e.preventDefault();
         removeErrorClass('validate-service');
-        if(!validation('validate-service'))
+        if(!validation('validate-service') || !fileInputValidation('service-image', 'add-service-error-container'))
             return;
-        createService()
+        createNewService()
+            .then(loadServices)
+            .then(renderServices)
+    });
+
+    let editCurrentServiceForm = document.getElementById('edit-service-form');
+    editCurrentServiceForm.addEventListener('submit', (e) => {
+       e.preventDefault();
+       removeErrorClass('validate-edited-service');
+       if(!validation('validate-edited-service') || !fileInputValidation('edited-service-image', 'edit-service-error-container'))
+           return;
+        editService()
             .then(loadServices)
             .then(renderServices)
     });
@@ -40,7 +52,7 @@ function init(){
             .then(addServiceToClient)
             .then(getClientFromDB)
             .then(renderClientPage)
-    })
+    });
 }
 
 function loadClients() {
@@ -66,7 +78,24 @@ function renderClients(clients) {
     }
 }
 
-function createService() {
+function editService() {
+    let service ={};
+    let form = document.getElementById('edit-service-form');
+    service.name = form.name.value;
+    service.category = form.category.value;
+    service.price = parseInt(form.price.value);
+    service.img = 'img/' + form.image.files[0].name;
+
+    let serviceId =  document.getElementById('edit-service-div').querySelector('.add-button').id;
+
+    return fetch(servicesUrl + '/' + serviceId, {
+        method: 'PATCH',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(service)
+    });
+}
+
+function createNewService() {
     let service ={};
     let form = document.getElementById('add-new-service-form');
     service.name = form.name.value;
@@ -165,6 +194,27 @@ function renderServices(services) {
     }
 }
 
+function editServiceBtnClickHandler(button) {
+    addServiceBtnClickHandler();
+    removeErrorClass('validate-edited-service');
+
+    let serviceId = button.id;
+    document.getElementById('edit-service-error-container').innerHTML = "";
+    document.getElementById('edit-service-div').querySelector('.add-button').setAttribute('id', button.id);
+
+    fetch(servicesUrl + "/" + serviceId)
+        .then(res => res.json())
+        .then(setServiceDataToEditForm);
+}
+
+function setServiceDataToEditForm(service) {
+    let editForm = document.getElementById('edit-service-form');
+    editForm.querySelector('.service-name').value = service.name;
+    editForm.querySelector('.service-category').value = service.category;
+    editForm.querySelector('.service-price').value = service.price;
+    editForm.querySelector('.service-img').files[0].src = service.img;
+}
+
 function deleteService(button) {
     let serviceId = button.id;
     return fetch(servicesUrl + "/" + serviceId, {
@@ -193,6 +243,7 @@ function updateServiceElement(element, service) {
     element.querySelector(".price").innerHTML = service.price.toLocaleString() + " $";
     element.querySelector(".card-img-top").setAttribute("src", service.img);
     element.querySelector(".delete-service-btn").setAttribute("id", service.id);
+    element.querySelector(".edit-service-btn").setAttribute("id", service.id);
 }
 
 /*Render functions*/
@@ -281,9 +332,12 @@ function isNumberKey(event) {
 }
 
 function closeModal() {
-    if(validation('validate-service') || validation('validate-client')) {
+    if(validation('validate-client') ||
+        (validation('validate-service') && fileInputValidation('service-image',  'add-service-error-container')) ||
+        (validation('validate-edited-service') && fileInputValidation('edited-service-image', 'edit-service-error-container')) ) {
         $('#add-service-div').modal('hide');
         $('#add-client-div').modal('hide');
+        $('#edit-service-div').modal('hide');
     }
 }
 
@@ -300,9 +354,39 @@ function validation(validateClass) {
     return result;
 }
 
+function fileInputValidation(inputId, containerId) {
+    let container = document.getElementById(containerId);
+    container.innerHTML = "";
+    let input = document.getElementById(inputId);
+    if(input.files[0] === undefined) {
+        let errorLine = document.createElement('p');
+        errorLine.innerHTML = "*You haven't chosen any image...";
+        errorLine.style.color = 'red';
+        container.appendChild(errorLine);
+        return false;
+    }
+    return true;
+}
+
 function removeErrorClass(validateClass) {
     let validationFields = document.getElementsByClassName(validateClass);
     for(let field of validationFields) {
         field.classList.remove('error-validate');
+    }
+}
+
+function addClientBtnClickHandler() {
+    removeErrorClass('validate-client');
+    let validationFields = document.getElementsByClassName('validate-client');
+    for(let field of validationFields) {
+        field.value = "";
+    }
+}
+
+function addServiceBtnClickHandler() {
+    removeErrorClass('validate-service');
+    let validationFields = document.getElementsByClassName('validate-service');
+    for(let field of validationFields) {
+        field.value = "";
     }
 }

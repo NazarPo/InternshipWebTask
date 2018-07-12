@@ -24,53 +24,74 @@
     {
       "firstname": "Nazar",
       "lastname": "Poshtarenko",
-      "orderDate": "Tue, 10 Jul 2018 11:13:56 GMT",
+      "orderDate": "Tue, 10 Jul 2018 21:06:45 GMT",
       "services": [],
       "id": 4
-    },
-    {
-      "firstname": "jyjtyjtj",
-      "lastname": "jgj5676",
-      "orderDate": "Wed, 11 Jul 2018 15:40:02 GMT",
-      "services": [],
-      "id": 5
     }
   ],
   "services": [
     {
-      "id": 1,
-      "name": "name 1",
-      "img": "img/repairingEngine.png",
-      "category": "category",
-      "price": 34000
+      "name": "Engine reringing",
+      "category": "Repairing",
+      "price": 32550,
+      "img": "img/repair-engine.jpg",
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "name 2",
-      "img": "img/repairingTransmission.JPG",
-      "category": "category",
-      "price": 34000
+      "name": "Shaftline repairing",
+      "category": "Repairing",
+      "price": 56000,
+      "img": "img/engine-diagnostic.jpg",
+      "id": 2
     },
     {
-      "id": 3,
-      "name": "name 3",
-      "img": "img/repairingWheels.jpg",
-      "category": "category",
-      "price": 34000
+      "name": "Shaftline diagnostic",
+      "category": "Diagnostic",
+      "price": 5000,
+      "img": "img/shaftline-diagnostic.png",
+      "id": 3
     },
     {
-      "id": 4,
-      "name": "name 4",
-      "img": "img/repairingWheels.jpg",
-      "category": "category",
-      "price": 34000
+      "name": "Wheels repairing",
+      "category": "Repairing",
+      "price": 8900,
+      "img": "img/repair-wheels.jpg",
+      "id": 4
     },
     {
-      "name": "name 5",
-      "category": "category",
-      "price": 12000,
-      "img": "img/repairingTransmission.JPG",
+      "name": "Engine diagnostic",
+      "category": "Diagnostic",
+      "price": 3400,
+      "img": "img/engine-diagnostic.jpg",
       "id": 5
+    },
+    {
+      "name": "Engine details ordering",
+      "category": "Ordering",
+      "price": 15600,
+      "img": "img/details-ordering.png",
+      "id": 6
+    },
+    {
+      "name": "Engine details changing",
+      "category": "Changing",
+      "price": 2000,
+      "img": "img/details-changing.jpg",
+      "id": 7
+    },
+    {
+      "name": "Oil changing",
+      "category": "Changing",
+      "price": 1200,
+      "img": "img/change-oil.jpg",
+      "id": 8
+    },
+    {
+      "name": "Car washing",
+      "category": "Washing",
+      "price": 999,
+      "img": "img/car-washing.jpg",
+      "id": 9
     }
   ]
 }
